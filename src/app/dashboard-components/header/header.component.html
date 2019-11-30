@@ -1,0 +1,27 @@
+
+<div class="header-container">
+  <div class="logo-container">
+    <a (click)="toggleSidebar()" class="sidebar-toggle">
+      <nb-icon icon="menu-2-outline"></nb-icon>
+    </a>
+    <a class="logo" routerLink="../landing">auto-matic</a>
+  </div>
+</div>
+
+
+<div class="header-container">
+    <nb-select placeholder="Tema" [selected]="currentTheme" (selectedChange)="changeTheme($event)" status="primary">
+      <nb-option *ngFor="let theme of themes" [value]="theme.value"> {{ theme.name }}</nb-option>
+    </nb-select>
+  <nb-actions size="small">
+
+    <nb-action class="user-action">
+      <nb-user [nbContextMenu]="userMenu"
+               [name]="nombre"
+               [picture]=""
+               [title]="esAdmin?'Administrador':''">
+      </nb-user>
+    </nb-action>
+
+  </nb-actions>
+</div>

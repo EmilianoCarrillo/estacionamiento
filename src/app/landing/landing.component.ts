@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NbThemeService } from '@nebular/theme';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-landing',
@@ -8,11 +10,27 @@ import { NbThemeService } from '@nebular/theme';
 })
 export class LandingComponent implements OnInit {
 
-  constructor(private themeService: NbThemeService) {
-  }
+  userIsLogged;
 
-  ngOnInit() {
-  }
+  constructor(
+    private themeService: NbThemeService,
+    public afAuth: AngularFireAuth,
+    ) {}
+
+    ngOnInit() {
+      this.adjustButtons();
+    }
+
+    isLoggedIn() {
+      return this.afAuth.authState.pipe(first()).toPromise();
+    }
+
+    async adjustButtons() {
+      const user = await this.isLoggedIn()
+      if (user) {
+        this.userIsLogged = user;
+      }
+   }
 
   temaSeleccionado;
   temas:Array<Object> = [

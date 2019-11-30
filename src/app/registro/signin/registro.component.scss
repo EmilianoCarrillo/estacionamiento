@@ -1,4 +1,4 @@
-@import '../../themes.scss';
+@import '../../../themes.scss';
 
 a, nb-checkbox{
   cursor: pointer;
@@ -28,11 +28,22 @@ label{
   margin-bottom: 1.5rem;
 }
 
+.input-combo .caption{
+  text-align: center;
+}
+
 @include nb-install-component {
   .text-anchor{
     color: nb-theme(text-hint-color);
   }
   .text-anchor:hover{
     color: nb-theme(text-primary-color);
+  }
+}
+
+.terminosCard{
+  max-width: 500px;
+  nb-card-body{
+    display: block;
   }
 }

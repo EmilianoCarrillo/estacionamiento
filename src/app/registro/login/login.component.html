@@ -1,0 +1,75 @@
+<nb-layout>
+  <nb-layout-column>
+    <nb-card>
+      <nb-card-header>
+        <a routerLink=""><nb-icon icon="arrow-back-outline" class="backBtn"></nb-icon></a>
+      </nb-card-header>
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm.value)">
+        <nb-card-body>
+          <h2>Inicia sesión</h2>
+
+          <div class="input-combo">
+            <label  for="input-email">Email:</label>
+            <input  nbInput
+                    formControlName="email"
+                    required
+                    fullWidth
+                    placeholder="Email"
+                    type="email"
+                    id="input-email"
+                    [status]="getFormControl('email').dirty ? (getFormControl('email').invalid  ? 'danger' : 'success') : ''">
+            <div *ngIf="getFormControl('email').invalid && getFormControl('email').touched">
+              <p class="caption status-danger" *ngIf="getFormControl('email').errors?.required">
+                Coloca tu email
+              </p>
+              <p class="caption status-danger" *ngIf="getFormControl('email').errors?.email">
+                El email es incorrecto
+              </p>
+            </div>
+          </div>
+
+          <div class="input-combo">
+            <label  for="input-contraseña">Contraseña:</label>
+            <input  nbInput
+                    formControlName="contraseña"
+                    required
+                    fullWidth
+                    placeholder="Contraseña"
+                    type="password"
+                    id="input-contraseña"
+                    [status]="getFormControl('contraseña').dirty ? (getFormControl('contraseña').invalid  ? 'danger' : 'success') : ''">
+              <div *ngIf="getFormControl('contraseña').invalid && getFormControl('contraseña').touched">
+                <p class="caption status-danger" *ngIf="getFormControl('contraseña').errors?.required">
+                  Coloca una contraseña
+                </p>
+              </div>
+          </div>
+
+          <div class="input-combo">
+              <button   nbButton 
+                        fullWidth
+                        type="submit"
+                        size="large"
+                        [disabled]="!loginForm.valid"
+                        >Iniciar Sesión</button>
+          </div>
+
+          <!-- <section>
+            o inicia sesión con:
+            <div>
+                <a routerLink=".." class="text-anchor"><nb-icon icon="google"></nb-icon></a>
+                <a routerLink=".." class="text-anchor"><nb-icon icon="facebook"></nb-icon></a>
+                <a routerLink=".." class="text-anchor"><nb-icon icon="twitter"></nb-icon></a>
+            </div>
+          </section> -->
+          
+          <section>
+            ¿No tienes una cuenta? <a  routerLink=".." class="text-anchor">Regístrate</a>
+          </section>
+
+        </nb-card-body>
+      </form>
+    </nb-card>
+  </nb-layout-column>
+</nb-layout>
+ 

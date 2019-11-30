@@ -1,0 +1,18 @@
+<nb-layout> 
+
+  <nb-layout-header>
+    <app-header *ngIf="usuario" 
+                [nombre]="usuario.nombre"
+                [esAdmin]="usuario.esAdmin"></app-header>
+  </nb-layout-header>
+
+  <nb-sidebar>
+      <app-menu *ngIf="usuario" 
+                [esAdmin]="usuario.esAdmin"
+                ></app-menu>
+  </nb-sidebar>
+
+  <nb-layout-column class="colored-column-basic">
+
+  </nb-layout-column>
+</nb-layout>

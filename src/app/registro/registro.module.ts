@@ -2,11 +2,13 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { RegistroRoutingModule } from './registro-routing.module';
-import { RegistroComponent } from './registro.component';
+import { RegistroComponent } from './signin/registro.component';
 
 import { RouterModule } from '@angular/router';
 import { NbIconModule } from '@nebular/theme';
-import { FormsModule }   from '@angular/forms';
+import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
+import { NbToastrModule } from '@nebular/theme';
+
 import { 
   NbButtonModule,
   NbCheckboxModule,
@@ -15,14 +17,16 @@ import {
   NbInputModule,
 
 } from '@nebular/theme';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
-  declarations: [RegistroComponent],
+  declarations: [RegistroComponent, LoginComponent],
   imports: [
     CommonModule,
     RegistroRoutingModule,
 
     FormsModule,
+    ReactiveFormsModule,
     NbIconModule,
     RouterModule, 
     NbButtonModule,
@@ -30,7 +34,7 @@ import {
     NbCardModule,
     NbLayoutModule,
     NbInputModule,
-    
+    NbToastrModule.forRoot(),
   ]
 })
 export class RegistroModule { }

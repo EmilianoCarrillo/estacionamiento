@@ -1,0 +1,14 @@
+:host nb-layout-header ::ng-deep nav {
+  #rightHeader{
+    flex-grow: 1;
+    display: flex;
+    justify-content: flex-end; 
+
+    nb-select{
+     margin-right: 1rem; 
+    }
+    .needsMargin{
+      margin-right: 1rem;
+    }
+  }
+}

@@ -1,11 +1,20 @@
 <nb-layout>
   <nb-layout-header fixed>
-    <h3>auto-matic</h3>
-    <button nbButton routerLink="../registro">Registrarse</button>
-    <nb-select placeholder="Seleccionar Tema" [(selected)]="temaSeleccionado" (selectedChange)="cambiarTema()">
-      <nb-option *ngFor="let tema of temas" [value]="tema">{{tema.alias}}</nb-option>
-    </nb-select>
+    <div id="leftHeader">
+      <h3>auto-matic</h3>
+    </div>
+    <div id="rightHeader">
+      <nb-select placeholder="Seleccionar Tema" [(selected)]="temaSeleccionado" (selectedChange)="cambiarTema()">
+        <nb-option *ngFor="let tema of temas" [value]="tema">{{tema.alias}}</nb-option>
+      </nb-select>
+      <button nbButton routerLink="../dashboard-usuario" class="needsMargin" status="success" *ngIf="userIsLogged">
+        Ir al dashboard</button>
+      <button nbButton outline routerLink="../registro" class="needsMargin" *ngIf="!userIsLogged">Registrarse</button>
+      <button nbButton routerLink="../registro/login" *ngIf="!userIsLogged">Iniciar sesión</button>
+    </div>
   </nb-layout-header>
 
-  <nb-layout-column></nb-layout-column>
+  <nb-layout-column>
+    
+  </nb-layout-column>
 </nb-layout>
