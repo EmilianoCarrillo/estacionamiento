@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { Usuario } from 'src/app/modelos/Usuario';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { Reservacion } from 'src/app/modelos/Reservacion';
+import { NbDialogService } from '@nebular/theme';
+
 
 @Component({
   selector: 'app-reservaciones-usuario',
@@ -21,7 +23,8 @@ export class ReservacionesUsuarioComponent implements OnInit {
 
   constructor(
     public afAuth: AngularFireAuth,
-    private afs: AngularFirestore
+    private afs: AngularFirestore,
+    private dialogService: NbDialogService
   ) { 
     
     this.afAuth.authState.subscribe(user => {
@@ -65,6 +68,10 @@ export class ReservacionesUsuarioComponent implements OnInit {
       }
     });
     
+  }
+
+  open(dialog: TemplateRef<any>) {
+    this.dialogService.open(dialog);
   }
 
   ngOnInit() {}

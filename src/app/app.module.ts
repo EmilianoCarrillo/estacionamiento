@@ -15,7 +15,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { NbThemeModule } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 
-import { NbDialogModule, NbMenuModule } from '@nebular/theme';
+import { NbDialogModule, NbMenuModule, NbDatepickerModule } from '@nebular/theme';
 import { DashboardUsuarioModule } from './dashboard-usuario/dashboard-usuario.module';
 
 @NgModule({
@@ -34,6 +34,7 @@ import { DashboardUsuarioModule } from './dashboard-usuario/dashboard-usuario.mo
     NbDialogModule.forChild(),
     NbMenuModule.forRoot(),
     DashboardUsuarioModule,
+    NbDatepickerModule.forRoot(),
   ],
   declarations: [ AppComponent ],
   bootstrap: [ AppComponent ]

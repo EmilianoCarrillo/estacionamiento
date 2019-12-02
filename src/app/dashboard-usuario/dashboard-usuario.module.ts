@@ -11,6 +11,9 @@ import  {   NbLayoutModule,
             NbListModule,
             NbPopoverModule,
             NbTreeGridModule,
+            NbDatepickerModule,
+            NbInputModule,
+            NbSelectModule
         } from '@nebular/theme';
 
 import { DashboardComponentsModule } from '../dashboard-components/dashboard-components.module';
@@ -44,7 +47,10 @@ import { TarjetaPasadaComponent } from './pags/reservaciones-usuario/tarjeta-pas
     NbButtonModule,
     NbListModule,
     NbPopoverModule,
-    NbTreeGridModule
+    NbTreeGridModule,
+    NbDatepickerModule,
+    NbInputModule,
+    NbSelectModule
   ]
 })
 export class DashboardUsuarioModule { }
