@@ -7,7 +7,8 @@ import  {   NbLayoutModule,
             NbSidebarModule,
             NbCardModule,
             NbIconModule,
-            NbButtonModule
+            NbButtonModule,
+            NbListModule
         } from '@nebular/theme';
 
 import { DashboardComponentsModule } from '../dashboard-components/dashboard-components.module';
@@ -20,12 +21,13 @@ import { PerfilComponent } from './pags/perfil/perfil.component';
 import { TiemporealAdminComponent } from './pags/tiemporeal-admin/tiemporeal-admin.component';
 import { ReservacionesAdminComponent } from './pags/reservaciones-admin/reservaciones-admin.component';
 import { TarjetaEnCursoComponent } from './pags/reservaciones-usuario/tarjeta-en-curso/tarjeta-en-curso.component';
+import { TarjetaPasadaComponent } from './pags/reservaciones-usuario/tarjeta-pasada/tarjeta-pasada.component';
 
 
 @NgModule({
   declarations: [
     DashboardUsuarioComponent,
-    ReservacionesUsuarioComponent, AutosUsuarioComponent, EdoscuentaUsuarioComponent, PerfilComponent, TiemporealAdminComponent, ReservacionesAdminComponent, TarjetaEnCursoComponent
+    ReservacionesUsuarioComponent, AutosUsuarioComponent, EdoscuentaUsuarioComponent, PerfilComponent, TiemporealAdminComponent, ReservacionesAdminComponent, TarjetaEnCursoComponent, TarjetaPasadaComponent
   ],
   imports: [
     CommonModule,
@@ -37,7 +39,8 @@ import { TarjetaEnCursoComponent } from './pags/reservaciones-usuario/tarjeta-en
     RouterModule,
     NbCardModule,
     NbIconModule,
-    NbButtonModule
+    NbButtonModule,
+    NbListModule
   ]
 })
 export class DashboardUsuarioModule { }
