@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { NbThemeService } from '@nebular/theme';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { first } from 'rxjs/operators';
+import { NbDialogService } from '@nebular/theme';
 
 @Component({
   selector: 'app-landing',
@@ -11,9 +12,11 @@ import { first } from 'rxjs/operators';
 export class LandingComponent implements OnInit {
 
   userIsLogged;
+  disabledTC = false;
 
   constructor(
     private themeService: NbThemeService,
+    private dialogService: NbDialogService,
     public afAuth: AngularFireAuth,
     ) {}
 
@@ -41,5 +44,8 @@ export class LandingComponent implements OnInit {
   cambiarTema(){
     this.themeService.changeTheme(this.temaSeleccionado.nombre);
   }
-
+  abrirAcercaDe(dialog: TemplateRef<any>) {
+    this.dialogService.open(dialog);
+    this.disabledTC = true;
+  }
 }
