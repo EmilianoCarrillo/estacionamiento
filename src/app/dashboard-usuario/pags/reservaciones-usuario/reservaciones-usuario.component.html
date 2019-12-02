@@ -1,6 +1,17 @@
+<ng-template #dialog let-data let-ref="dialogRef">
+  <nb-card>
+    <nb-card-header>Template Dialog</nb-card-header>
+    <nb-card-body>{{ data }}</nb-card-body>
+    <nb-card-footer>
+      <button nbButton (click)="ref.close()">Close Dialog</button>
+    </nb-card-footer>
+  </nb-card>
+</ng-template>
+
+
 <div id="TitleContainer">
   <h5>Tus reservaciones</h5>
-  <button nbButton>Reservar un cajón</button>
+  <button nbButton (click)="open(dialog)">Reservar un cajón</button>
 </div>
 
 <div>
