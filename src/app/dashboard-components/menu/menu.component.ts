@@ -19,29 +19,29 @@ export class MenuComponent implements OnInit {
         {
           title: 'Datos tiempo real',
           icon: 'pie-chart-outline',
-          link: [],
+          link: 'tiemporeal-admin',
         },
         {
           title: 'Reservaciones',
           icon: 'bookmark-outline',
-          link: [],
+          link: 'reservaciones-admin',
         }
       ];
     }else{
        this.items = [{
           title: 'Reservaciones',
           icon: 'bookmark-outline',
-          link: [],
+          link: 'reservaciones-usuario'
         },
         {
           title: 'Autos',
           icon: 'car-outline',
-          link: [],
+          link: 'autos-usuario',
         },
         {
           title: 'Estado de cuenta',
           icon:'credit-card-outline',
-          link: '',
+          link: 'edoscuenta-usuario',
         },
       ];
     }

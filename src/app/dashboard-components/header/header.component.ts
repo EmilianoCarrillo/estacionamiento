@@ -14,7 +14,7 @@ export class HeaderComponent implements OnInit {
   @Input() nombre;
   @Input() esAdmin;
 
-  userMenu = [ { title: 'Perfil' }, { title: 'Cerrar sesión' } ];
+  userMenu = [ { title: 'Perfil', icon:'person' }, { title: 'Cerrar sesión', icon:'log-out' } ];
 
   themes = [
     {
@@ -43,7 +43,7 @@ export class HeaderComponent implements OnInit {
 
   onItemSelection( title ) {
     if ( title === 'Perfil' ) {
-      console.log('Click en Perfil -> ')
+      this.router.navigate(["/dashboard-usuario/perfil"]);
     } else if ( title === 'Cerrar sesión' ) {
       this.afAuth.auth.signOut();
       this.router.navigate(["../../landing"]);
