@@ -1,9 +1,30 @@
-<ng-template #dialog let-data let-ref="dialogRef">
+<ng-template #addReserv let-data let-ref="dialogRef">
   <nb-card>
-    <nb-card-header>Template Dialog</nb-card-header>
-    <nb-card-body>{{ data }}</nb-card-body>
+    <nb-card-header>Realizar reservación</nb-card-header>
+    <nb-card-body>
+      <input nbInput [nbDatepicker]="datepicker">
+      <nb-datepicker #datepicker></nb-datepicker>
+      <div>
+        <input nbInput>
+        <input nbInput>
+      </div>
+      <nb-select></nb-select>
+    </nb-card-body>
     <nb-card-footer>
-      <button nbButton (click)="ref.close()">Close Dialog</button>
+      <button nbButton outline (click)="ref.close()">Cancelar</button>
+      <button nbButton status="success">Reservar</button>
+    </nb-card-footer>
+  </nb-card>
+</ng-template>
+
+<ng-template #alargarReserv let-data let-ref="dialogRef">
+  <nb-card>
+    <nb-card-header>Alargar reservación</nb-card-header>
+    <nb-card-body>
+
+    </nb-card-body>
+    <nb-card-footer>
+      <button nbButton (click)="ref.close()">Cerrar</button>
     </nb-card-footer>
   </nb-card>
 </ng-template>
@@ -11,9 +32,8 @@
 
 <div id="TitleContainer">
   <h5>Tus reservaciones</h5>
-  <button nbButton (click)="open(dialog)">Reservar un cajón</button>
+  <button nbButton (click)="open(addReserv)">Reservar un cajón</button>
 </div>
-
 <div>
   <nb-card>
     <nb-card-header>En curso</nb-card-header>
