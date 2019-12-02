@@ -8,13 +8,15 @@
         <nb-option *ngFor="let tema of temas" [value]="tema">{{tema.alias}}</nb-option>
       </nb-select>
       <button nbButton routerLink="../dashboard-usuario" class="needsMargin" status="success" *ngIf="userIsLogged">
-        Ir al dashboard</button>
+        Ir al dashboard </button>
       <button nbButton outline routerLink="../registro" class="needsMargin" *ngIf="!userIsLogged">Registrarse</button>
       <button nbButton routerLink="../registro/login" *ngIf="!userIsLogged">Iniciar sesión</button>
     </div>
   </nb-layout-header>
 
   <nb-layout-column>
-    
+    <div id=eslogan>
+      <h3>Frase</h3>
+    </div>
   </nb-layout-column>
 </nb-layout>
