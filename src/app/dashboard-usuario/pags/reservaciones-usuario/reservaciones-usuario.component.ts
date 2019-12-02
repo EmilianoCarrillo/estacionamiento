@@ -12,9 +12,11 @@ import { Reservacion } from 'src/app/modelos/Reservacion';
 })
 export class ReservacionesUsuarioComponent implements OnInit {
 
-  private reservacionesCollection: AngularFirestoreCollection<Reservacion>;
-  reservaciones: Observable<Reservacion[]>;
-  reservacionesEnCurso = new Array<Reservacion>();
+  private reservacionesCollection: AngularFirestoreCollection<any>;
+  reservaciones: Observable<any[]>;
+  reservacionesEnCurso : Array<any>;
+  reservacionesPasadas: Array<any>;
+  reservacionesProximas: Array<any>;
   uid: string;
 
   constructor(
@@ -29,16 +31,36 @@ export class ReservacionesUsuarioComponent implements OnInit {
         this.reservacionesCollection = afs.collection<Reservacion>('reservaciones',
           ref => ref.where('usuario.uid', '==', this.uid)
         );
-        this.reservaciones = this.reservacionesCollection.valueChanges();
+        
+        this.reservacionesCollection.valueChanges().subscribe(resvs => {
 
-        // Tomar las reservaciones actuales
-        this.reservaciones.subscribe(resvs =>{
+          // Reservaciones Actuales
+          this.reservacionesEnCurso = new Array<Reservacion>();
           resvs.forEach(resv => {
             let ahorita = new Date();
             if(resv.horaSalida.toDate() > ahorita && resv.horaEntrada.toDate() < ahorita){
               this.reservacionesEnCurso.push(resv);
             }
           });
+
+          // Reservaciones Pasadas
+          this.reservacionesPasadas = new Array<Reservacion>();
+          resvs.forEach(resv => {
+            let ahorita = new Date();
+            if(resv.horaSalida.toDate() < ahorita){
+              this.reservacionesPasadas.push(resv);
+            }
+          });
+
+          // Reservaciones Pasadas
+          this.reservacionesProximas = new Array<Reservacion>();
+          resvs.forEach(resv => {
+            let ahorita = new Date();
+            if(resv.horaEntrada.toDate() > ahorita){
+              this.reservacionesProximas.push(resv);
+            }
+          });
+
         });
       }
     });

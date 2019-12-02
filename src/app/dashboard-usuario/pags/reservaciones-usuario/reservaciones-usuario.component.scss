@@ -1,19 +1,29 @@
 @import '../../../../themes.scss';
 
 :host {
-  h5{
-    margin: 0 0 1.3rem 0;
-    color: nb-theme(text-hint-color);
-  }
-
   .mediumCards{
-
     display: flex;
     justify-content: space-between;
     align-content: center;
 
     nb-card{
       width: 48%;
+    }
+  }
+
+  #TitleContainer{
+    width: 100%;
+    position: relative;
+
+    h5{
+      display: inline-block;
+      margin: 0 0 1.6rem 0;
+      color: nb-theme(text-hint-color);
+    }
+
+    button{
+      position: absolute;
+      right: 0;
     }
   }
 }

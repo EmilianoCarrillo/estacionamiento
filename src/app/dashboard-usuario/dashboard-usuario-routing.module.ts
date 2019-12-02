@@ -10,7 +10,7 @@ import { TiemporealAdminComponent } from './pags/tiemporeal-admin/tiemporeal-adm
 import { PerfilComponent } from './pags/perfil/perfil.component';
 
 const routes: Routes = [{ 
-  path: '',
+  path: 'dashboard-usuario',
   component: DashboardUsuarioComponent,
   children:[
     {

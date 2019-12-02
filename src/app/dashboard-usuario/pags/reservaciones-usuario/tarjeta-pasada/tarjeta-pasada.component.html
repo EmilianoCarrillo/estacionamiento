@@ -1,1 +1,18 @@
-<p>tarjeta-pasada works!</p>
+<div class="wrapper" [nbPopover]="costo | currency" nbPopoverTrigger="hint" nbPopoverOffset="0" nbPopoverPlacement="left">
+  <div class="container">
+    <p class="date">{{prettyDate(reservacion.horaEntrada.toDate())}}</p>
+  </div>
+  <div class="container">
+    <div class="hours">
+      <p><nb-icon icon="clock-outline"></nb-icon></p>
+      <p>
+        {{prettyTime(reservacion.horaEntrada.toDate())}}
+        {{prettyTime(reservacion.horaSalida.toDate())}}
+      </p>
+    </div>
+    <div class="car">
+        <p><nb-icon icon="car-outline"></nb-icon></p>
+        <p>{{reservacion.auto.modelo}}</p>
+    </div>
+  </div>
+</div>

@@ -8,7 +8,8 @@ import  {   NbLayoutModule,
             NbCardModule,
             NbIconModule,
             NbButtonModule,
-            NbListModule
+            NbListModule,
+            NbPopoverModule
         } from '@nebular/theme';
 
 import { DashboardComponentsModule } from '../dashboard-components/dashboard-components.module';
@@ -40,7 +41,8 @@ import { TarjetaPasadaComponent } from './pags/reservaciones-usuario/tarjeta-pas
     NbCardModule,
     NbIconModule,
     NbButtonModule,
-    NbListModule
+    NbListModule,
+    NbPopoverModule
   ]
 })
 export class DashboardUsuarioModule { }

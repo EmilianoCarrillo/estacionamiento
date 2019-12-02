@@ -1,24 +1,37 @@
-<h5>Tus reservaciones</h5>
+<div id="TitleContainer">
+  <h5>Tus reservaciones</h5>
+  <button nbButton>Reservar un cajón</button>
+</div>
+
 <div>
   <nb-card>
     <nb-card-header>En curso</nb-card-header>
     <app-tarjeta-en-curso *ngFor="let reservacion of reservacionesEnCurso"
-                                [reservacion]="reservacion">
+                          [reservacion]="reservacion">
     </app-tarjeta-en-curso>
   </nb-card>
   <div class="mediumCards">
       <nb-card size="medium">
         <nb-card-header>Pasadas</nb-card-header>
         <nb-card-body>
-            <nb-list>
-              <nb-list-item>
-                Hola
-              </nb-list-item>              
-            </nb-list>
-          </nb-card-body>
+          <nb-list>
+            <nb-list-item *ngFor="let reservacion of reservacionesPasadas">
+              <app-tarjeta-pasada [reservacion]="reservacion">
+              </app-tarjeta-pasada>            
+            </nb-list-item>              
+          </nb-list>
+        </nb-card-body>
       </nb-card>
       <nb-card size="medium">
         <nb-card-header>Próximas</nb-card-header>
+        <nb-card-body>
+          <nb-list>
+            <nb-list-item *ngFor="let reservacion of reservacionesProximas">
+              <app-tarjeta-pasada [reservacion]="reservacion">
+              </app-tarjeta-pasada>            
+            </nb-list-item>              
+          </nb-list>
+        </nb-card-body>
       </nb-card>
   </div>
 </div>
