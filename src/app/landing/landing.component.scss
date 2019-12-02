@@ -1,3 +1,4 @@
+@import '../../themes.scss';
 :host nb-layout-header ::ng-deep nav {
   #rightHeader{
     flex-grow: 1;
@@ -11,7 +12,30 @@
       margin-right: 1rem;
     }
   }
+  
 }
 #eslogan{
-  margin-block-start: 10rem;
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+}
+#column1{
+  display: inline-block;
+  margin-block-start: 3rem;
+}
+#coumn2{
+  display: inline-block;
+}
+#imagen{
+  margin-top: none;
+  width: 60rem;
+}
+#TextoEslogan{
+  color: #1C2833;
+  //color: #598bff;
+}
+#Desc{
+  color: #515A5A;
+
+  //color: #B2BABB;
 }

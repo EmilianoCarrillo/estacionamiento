@@ -35,7 +35,7 @@ export class ReservacionesUsuarioComponent implements OnInit {
         this.reservaciones.subscribe(resvs =>{
           resvs.forEach(resv => {
             let ahorita = new Date();
-            if(resv.horaSalida.toDate() > ahorita && resv.horaEntrada.toDate() < ahorita){
+            if(resv.horaSalida.toDate() > ahorita && resv.horaEntrada.toDate() < ahorita){  
               this.reservacionesEnCurso.push(resv);
             }
           });
