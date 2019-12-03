@@ -1,0 +1,23 @@
+@import '../reservaciones-usuario/reservaciones-usuario.component.scss';
+
+#Wrapper{
+  display: flex;
+  flex-direction: row;
+}
+
+#Menu{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 20%;
+  position: fixed;
+  right: 0;
+  button{
+    margin-bottom: 1.2rem;
+    width: 4rem;
+  }
+}
+
+#Cards{
+  width: 80%;
+}

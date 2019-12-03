@@ -1,1 +1,18 @@
-<p>autos-usuario works!</p>
+<div id="TitleContainer">
+  <h5>Tus autos</h5>
+</div>
+
+<div id="Wrapper">
+  <!-- AUTOS -->
+  <div id="Cards">
+    <app-tarjeta-auto *ngFor="let auto of autos"
+                      [auto]="auto">
+    </app-tarjeta-auto>
+  </div>
+
+  <!-- MENU -->
+  <div id="Menu" class="container">
+    <button status="success" outline nbButton><nb-icon icon="plus"></nb-icon></button>
+    <button status="danger" outline nbButton><nb-icon icon="trash-outline"></nb-icon></button>
+  </div>
+</div>

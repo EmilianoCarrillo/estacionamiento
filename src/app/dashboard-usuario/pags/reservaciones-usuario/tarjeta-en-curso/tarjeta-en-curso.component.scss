@@ -47,9 +47,32 @@ nb-card-body{
     }
 
     button{
-      margin-top: 1.5rem;
+      margin-top: 0.4rem;
     }
   }
 }
+
+
+#precio{
+  margin-bottom: 0.7rem;
+
+  .str{
+    color: nb-theme(text-primary-color);
+    font-size: 1.6rem;
+    font-weight: bold;
+  }
+}
+
+}
+
+.cancelarBtn{
+  margin-right: 1.5rem;
+}
+
+.hint2{
+  color: nb-theme(text-hint-color);
+  font-size: 0.6rem;
+  font-weight: 500;
+  margin: 0.6rem 0;
 }
 

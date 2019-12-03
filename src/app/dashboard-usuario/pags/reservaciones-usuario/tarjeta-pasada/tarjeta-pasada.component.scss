@@ -5,6 +5,8 @@
   cursor: pointer;
 }
 .container{
+  display: flex;
+  flex-direction: column;
   width: 50%;
   padding: 0 1rem;
 }
@@ -18,4 +20,14 @@
 
 p{
   margin: 0.3rem 0;
+}
+
+
+#deleteBtn{
+  // padding: 0.3rem;
+  // align-self: flex-end;
+  // position: relative;
+  // right: -0.3rem;
+  width: 100%;
+  margin-top: 0.3rem;
 }

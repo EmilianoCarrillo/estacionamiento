@@ -1,9 +1,9 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { Usuario } from 'src/app/modelos/Usuario';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { Reservacion } from 'src/app/modelos/Reservacion';
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { NbDialogService, NbDateService } from '@nebular/theme';
 import { Auto } from 'src/app/modelos/Auto';
 import { FormControl, FormGroup, AbstractControl } from '@angular/forms';
@@ -29,7 +29,7 @@ export class ReservacionesUsuarioComponent implements OnInit {
 
   uid: string;
   userNombre: any;
-  hoy= new Date();
+  ayer = new Date();
 
   resvForm = new FormGroup({
     fecha: new FormControl('', Validators.required),
@@ -56,6 +56,9 @@ export class ReservacionesUsuarioComponent implements OnInit {
     private toastrService: NbToastrService,
   ) { 
     
+    let hoy= new Date();
+    this.ayer.setDate(hoy.getDate() - 1);
+
     this.afAuth.authState.subscribe(user => {
       if(user) {
         this.uid = user.uid;

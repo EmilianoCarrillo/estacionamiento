@@ -31,12 +31,13 @@ import { TarjetaEnCursoComponent } from './pags/reservaciones-usuario/tarjeta-en
 import { TarjetaPasadaComponent } from './pags/reservaciones-usuario/tarjeta-pasada/tarjeta-pasada.component';
 
 import { NbToastrModule } from '@nebular/theme';
+import { TarjetaAutoComponent } from './pags/autos-usuario/tarjeta-auto/tarjeta-auto.component';
 
 
 @NgModule({
   declarations: [
     DashboardUsuarioComponent,
-    ReservacionesUsuarioComponent, AutosUsuarioComponent, EdoscuentaUsuarioComponent, PerfilComponent, TiemporealAdminComponent, ReservacionesAdminComponent, TarjetaEnCursoComponent, TarjetaPasadaComponent
+    ReservacionesUsuarioComponent, AutosUsuarioComponent, EdoscuentaUsuarioComponent, PerfilComponent, TiemporealAdminComponent, ReservacionesAdminComponent, TarjetaEnCursoComponent, TarjetaPasadaComponent, TarjetaAutoComponent
   ],
   imports: [
     CommonModule,

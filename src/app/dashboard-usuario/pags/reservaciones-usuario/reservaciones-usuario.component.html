@@ -7,7 +7,7 @@
         <div>
           <input nbInput fullWidth [nbDatepicker]="datepicker"
           formControlName="fecha">
-          <nb-datepicker #datepicker [min]="hoy"></nb-datepicker>
+          <nb-datepicker #datepicker [min]="ayer"></nb-datepicker>
         </div>
         <p class="label">Tiempo de reservación:</p>
         <div id="horasInputs">
@@ -83,7 +83,7 @@
         <nb-card-body>
           <nb-list>
             <nb-list-item *ngFor="let reservacion of reservacionesProximas">
-              <app-tarjeta-pasada [reservacion]="reservacion">
+              <app-tarjeta-pasada [reservacion]="reservacion" deletable="true">
               </app-tarjeta-pasada>            
             </nb-list-item>              
           </nb-list>

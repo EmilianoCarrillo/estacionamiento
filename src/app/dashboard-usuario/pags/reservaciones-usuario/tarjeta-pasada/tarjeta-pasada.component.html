@@ -1,3 +1,18 @@
+<ng-template #cancelarDialog let-data let-ref="dialogRef">
+  <nb-card>
+      <nb-card-header>Eliminar Reservación</nb-card-header>
+      <nb-card-body>
+        ¿Está seguro de que desea cancelar la cita?
+      </nb-card-body>
+      <nb-card-footer id="nuevaFooter">
+        <button nbButton outline ghost status="basic" (click)="ref.close()" class="cancelarBtn">Cancelar</button>
+        <button nbButton status="danger" (click)="onCancelar(); ref.close()">Sí, eliminar</button>
+      </nb-card-footer>
+    </nb-card>
+  </ng-template>
+
+
+
 <div class="wrapper" [nbPopover]="costo | currency" nbPopoverTrigger="hint" nbPopoverOffset="0" nbPopoverPlacement="left">
   <div class="container">
     <p class="date">{{prettyDate(reservacion.horaEntrada.toDate())}}</p>
@@ -14,5 +29,12 @@
         <p><nb-icon icon="car-outline"></nb-icon></p>
         <p>{{reservacion.auto.modelo}}</p>
     </div>
+    <button nbButton ghost status="danger" id="deleteBtn"
+            *ngIf="deletable" (click)="open(cancelarDialog)">
+      <span>
+        <nb-icon icon="close-outline"></nb-icon>
+        Cancelar
+      </span>
+    </button>
   </div>
 </div>

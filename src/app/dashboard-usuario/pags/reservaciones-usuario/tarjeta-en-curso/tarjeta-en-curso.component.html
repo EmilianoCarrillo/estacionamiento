@@ -1,14 +1,24 @@
 <ng-template #alargarDialog let-data let-ref="dialogRef">
+  <form (ngSubmit)="onSubmit(); ref.close()">
     <nb-card>
         <nb-card-header>Alargar Reservación</nb-card-header>
         <nb-card-body>
-          <p class="label">Horas a añadir:</p>
-          <input nbInput fullWidth type="number" pattern="\d*">
+          <p class="label">Número de horas añadidas:</p>
+          <input nbInput fullWidth type="number" pattern="\d*" [formControl]="horasMas"
+          [status]="horasMas.dirty ? (!horasMas.valid  ? 'danger' : 'success') : ''">
+          <div *ngIf="horasMas.dirty && !horasMas.valid">
+              <p class="caption status-danger">
+                Escribe un número entero
+              </p>
+          </div>
+          <span class="hint2">*Precio por hora: $75</span>
         </nb-card-body>
-        <nb-card-footer>
-          <button nbButton (click)="ref.close()">Close Dialog</button>
+        <nb-card-footer id="nuevaFooter">
+          <button nbButton outline (click)="ref.close()" class="cancelarBtn">Cancelar</button>
+          <button nbButton status="success" type="submit" [disabled]="!horasMas.valid">Aceptar</button>
         </nb-card-footer>
       </nb-card>
+    </form>
 </ng-template>
 
 
@@ -20,6 +30,10 @@
     <img [src]="fotoUrl | async" class="auto"/>
   </div>
   <div class="content">
+    <div id="precio">
+        <!-- <span class="hint">Precio: </span> -->
+        <span class="str">{{costo | currency}}</span>
+    </div>
     <div class="horas">
       <span class="hint" id="intervLbl">Intervalo en horas:</span>
       <span>{{prettyDate2(reservacion.horaEntrada.toDate())}}</span>

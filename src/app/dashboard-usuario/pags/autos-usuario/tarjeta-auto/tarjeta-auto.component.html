@@ -1,0 +1,14 @@
+<nb-card (click)="onTarjetaClicked()">
+  <nb-card-body>
+      <div *ngIf="fotoUrl" class="content">
+        <img [src]="fotoUrl | async" class="autoImg"/>
+      </div>
+      <div class="content">
+        <p id="Modelo">{{titleCase(auto.modelo)}}</p>
+        <p>
+          <span id="Hint">Placa: </span>
+          <span id="Placa">{{auto.placa}}</span>
+        </p>
+      </div>
+  </nb-card-body>
+</nb-card>
