@@ -8,19 +8,19 @@ interface TreeNode<T> {
   children?: TreeNode<T>[];
   expanded?: boolean;
 }
-interface FSEntry {
+/*interface FSEntry {
   name: string;
   size: string;
   kind: string;
   items?: number;
-}
-/*interface FSEntry {
-  fecha: Date;
-  auto: string;
-  horaEntrada: Time;
-  horaSalida: Time;
-  subtotal?: number; 
 }*/
+interface FSEntry {
+  Fecha: string;
+  Auto?: string;
+  HoraEntrada?: string;
+  HoraSalida?: string;
+  Subtotal?: number; 
+}
 
 @Component({
   selector: 'app-edoscuenta-usuario',
@@ -29,8 +29,8 @@ interface FSEntry {
 })
 export class EdoscuentaUsuarioComponent
 {
-  customColumn = 'name';
-  defaultColumns = [ 'size', 'kind', 'items' ];
+  customColumn = 'Fecha';
+  defaultColumns = [ 'Auto', 'HoraEntrada', 'HoraSalida','Subtotal' ];
   allColumns = [ this.customColumn, ...this.defaultColumns ];
 
   dataSource: NbTreeGridDataSource<FSEntry>;
@@ -53,7 +53,7 @@ export class EdoscuentaUsuarioComponent
     return NbSortDirection.NONE;
   }
 
-  private data: TreeNode<FSEntry>[] = [
+  /*private data: TreeNode<FSEntry>[] = [
     {
       data: { name: 'Projects', size: '1.8 MB', items: 5, kind: 'dir' },
       children: [
@@ -95,10 +95,33 @@ export class EdoscuentaUsuarioComponent
         { data: { name: 'secret-note.txt', kind: 'txt', size: '2 MB' } },
       ],
     },
+  ];*/
+  private data: TreeNode<FSEntry>[] = [
+    {
+      data: { Fecha: 'Enero'},
+      children: [
+        { data: { Fecha: '02/01/19', Auto:'Jetta Blanco 2018', HoraEntrada:'06:00pm',HoraSalida:'08:00pm',Subtotal:120.50 } },
+        { data: { Fecha: '20/01/19', Auto:'Corolla Azul 2019', HoraEntrada:'04:00pm',HoraSalida:'05:00pm',Subtotal:200.2 } },
+        { data: { Fecha: '23/01/19', Auto:'Rols Royce Negro 2015', HoraEntrada:'04:30pm',HoraSalida:'05:00pm',Subtotal:200.2 } },
+      ],
+    },
+    {
+      data: { Fecha: 'Febrero'},
+      children: [
+        { data: { Fecha: '02/02/19', Auto:'Jetta Blanco 2018', HoraEntrada:'06:00pm',HoraSalida:'08:00pm',Subtotal:120.50 } },
+        { data: { Fecha: '20/02/19', Auto:'Corolla Azul 2019', HoraEntrada:'04:00pm',HoraSalida:'05:00pm',Subtotal:200.2 } },
+      ],
+    },
+    {
+      data: { Fecha: 'Agosto'},
+      children: [
+        { data: { Fecha: '23/01/19', Auto:'Rols Royce Negro 2015', HoraEntrada:'04:30pm',HoraSalida:'05:00pm',Subtotal:200.2 } },
+      ],
+    },
   ];
 
   getShowOn(index: number) {
-    const minWithForMultipleColumns = 400;
+    const minWithForMultipleColumns = 500;
     const nextColumnStep = 100;
     return minWithForMultipleColumns + (nextColumnStep * index);
   }
