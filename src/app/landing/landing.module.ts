@@ -9,7 +9,8 @@ import { NbIconModule } from '@nebular/theme';
 import  { NbLayoutModule, 
           NbButtonModule,
           NbSelectModule,
-          NbCardModule
+          NbCardModule,
+          NbStepperModule,
 
         } from '@nebular/theme';
 
@@ -26,6 +27,7 @@ import  { NbLayoutModule,
     NbButtonModule,
     NbSelectModule,
     NbCardModule,
+    NbStepperModule,
   ]
 })
 export class LandingModule { }
