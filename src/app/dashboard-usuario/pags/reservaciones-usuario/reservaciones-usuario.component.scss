@@ -26,4 +26,40 @@
       right: 0;
     }
   }
+
+}
+
+.label{
+  color: nb-theme(text-hint-color);
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+nb-select{
+  margin-bottom:1rem;
+}
+
+#nuevaReserva{
+  width:20rem;
+
+  nb-card-footer{
+    display: flex;
+    justify-content: flex-end;
+
+    button:first-child{
+      margin-right: 0.8rem;
+    }
+
+  }
+}
+
+
+#horasInputs{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  input{
+    width: 7.5rem;
+  }
 }

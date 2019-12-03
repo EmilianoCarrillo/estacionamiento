@@ -4,7 +4,13 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { Reservacion } from 'src/app/modelos/Reservacion';
-import { NbDialogService } from '@nebular/theme';
+import { NbDialogService, NbDateService } from '@nebular/theme';
+import { Auto } from 'src/app/modelos/Auto';
+import { FormControl, FormGroup, AbstractControl } from '@angular/forms';
+import { Validators } from '@angular/forms';
+import { NbToastrService } from '@nebular/theme';
+import { map } from 'rxjs/operators';
+
 
 
 @Component({
@@ -15,28 +21,72 @@ import { NbDialogService } from '@nebular/theme';
 export class ReservacionesUsuarioComponent implements OnInit {
 
   private reservacionesCollection: AngularFirestoreCollection<any>;
-  reservaciones: Observable<any[]>;
+  private autosCollection: AngularFirestoreCollection<Auto>;
   reservacionesEnCurso : Array<any>;
   reservacionesPasadas: Array<any>;
   reservacionesProximas: Array<any>;
+  autos: Array<any>;
+
   uid: string;
+  userNombre: any;
+  hoy= new Date();
+
+  resvForm = new FormGroup({
+    fecha: new FormControl('', Validators.required),
+    horaInicio: new FormControl('', Validators.required),
+    horaFin: new FormControl('', Validators.required),
+    auto: new FormControl('', Validators.required),
+  },{validators: this.hoursConfirming});
+
+  hoursConfirming(c: AbstractControl): { invalid: boolean } {
+    if (c.get('horaInicio').value >= c.get('horaFin').value) {
+        return {invalid: true};
+    }
+  }
+
+  getFormControl(valor) {
+    return this.resvForm.get(valor);
+  }
 
   constructor(
     public afAuth: AngularFireAuth,
     private afs: AngularFirestore,
-    private dialogService: NbDialogService
+    private dialogService: NbDialogService,
+    protected dateService: NbDateService<Date>,
+    private toastrService: NbToastrService,
   ) { 
     
     this.afAuth.authState.subscribe(user => {
       if(user) {
         this.uid = user.uid;
 
+        afs.collection('usuarios').doc(this.uid).get().subscribe(doc => {
+          this.userNombre = doc.data().nombre
+        });
+
+        // AUTOS
+        this.autosCollection = afs.collection<Auto>('autos',
+          ref => ref.where('uid', '==', this.uid)
+        );
+        this.autosCollection.valueChanges().subscribe(autos => {
+          this.autos = autos;
+        });
+
+        // RESERVACIONES
         this.reservacionesCollection = afs.collection<Reservacion>('reservaciones',
           ref => ref.where('usuario.uid', '==', this.uid)
+          //.orderBy('horaEntrada')
         );
         
-        this.reservacionesCollection.valueChanges().subscribe(resvs => {
+        this.reservacionesCollection.snapshotChanges().pipe(
+          map(actions => actions.map(a => {
 
+            const data = a.payload.doc.data() as any;
+            data.id = a.payload.doc.id;
+            return data;
+
+          }))
+        ).subscribe(resvs => {
           // Reservaciones Actuales
           this.reservacionesEnCurso = new Array<Reservacion>();
           resvs.forEach(resv => {
@@ -63,8 +113,8 @@ export class ReservacionesUsuarioComponent implements OnInit {
               this.reservacionesProximas.push(resv);
             }
           });
-
         });
+
       }
     });
     
@@ -75,5 +125,55 @@ export class ReservacionesUsuarioComponent implements OnInit {
   }
 
   ngOnInit() {}
+
+  onSubmitAdd() {
+    let data = this.resvForm.value;
+
+    let nuevaResv = {
+      usuario : {
+        nombre: '',
+        uid: ''
+      },
+      auto:{},
+      horaEntrada: new Date(),
+      horaSalida: new Date(),
+      cajon: ''
+    };
+
+    nuevaResv.usuario.nombre = this.userNombre;
+    nuevaResv.usuario.uid = this.uid;
+    nuevaResv.cajon = '';
+    let fecha = data.fecha;
+    nuevaResv.horaEntrada = new Date(fecha.setHours(
+      data.horaInicio.split(':')[0], data.horaInicio.split(':')[1]));
+    nuevaResv.horaSalida = new Date(fecha.setHours(
+      data.horaFin.split(':')[0], data.horaFin.split(':')[1]));
+    
+    this.autos.forEach(auto =>{
+      if(auto.modelo == data.auto)
+        nuevaResv.auto = auto;
+    });
+
+    this.reservacionesCollection.add(nuevaResv).then(d =>{
+      this.toastrService.show(
+        'Has reservado un cajón',
+        'Éxito',
+        {
+          status: 'success',
+          duration: 5000
+        });
+    }).catch(err =>{
+      console.error('ERROR ' + err.code + ' ' + err.message);
+      this.toastrService.show(
+        'Contacta al operador',
+        'Error de reserva',
+        {
+          status: 'danger',
+          duration: 5000
+        });
+    });
+
+    this.resvForm.reset();
+  }
 
 }

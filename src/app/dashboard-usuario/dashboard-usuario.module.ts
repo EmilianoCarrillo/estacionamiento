@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule,  ReactiveFormsModule }   from '@angular/forms';
+
 
 import { DashboardUsuarioRoutingModule } from './dashboard-usuario-routing.module';
 import { DashboardUsuarioComponent } from './dashboard-usuario.component';
@@ -12,7 +14,7 @@ import  {   NbLayoutModule,
             NbPopoverModule,
             NbDatepickerModule,
             NbInputModule,
-            NbSelectModule
+            NbSelectModule,
         } from '@nebular/theme';
 
 import { DashboardComponentsModule } from '../dashboard-components/dashboard-components.module';
@@ -26,6 +28,8 @@ import { TiemporealAdminComponent } from './pags/tiemporeal-admin/tiemporeal-adm
 import { ReservacionesAdminComponent } from './pags/reservaciones-admin/reservaciones-admin.component';
 import { TarjetaEnCursoComponent } from './pags/reservaciones-usuario/tarjeta-en-curso/tarjeta-en-curso.component';
 import { TarjetaPasadaComponent } from './pags/reservaciones-usuario/tarjeta-pasada/tarjeta-pasada.component';
+
+import { NbToastrModule } from '@nebular/theme';
 
 
 @NgModule({
@@ -48,7 +52,11 @@ import { TarjetaPasadaComponent } from './pags/reservaciones-usuario/tarjeta-pas
     NbPopoverModule,
     NbDatepickerModule,
     NbInputModule,
-    NbSelectModule
+    NbSelectModule,
+
+    FormsModule, 
+    ReactiveFormsModule,
+    NbToastrModule.forRoot(),
   ]
 })
 export class DashboardUsuarioModule { }

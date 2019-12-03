@@ -1,3 +1,20 @@
+<ng-template #alargarDialog let-data let-ref="dialogRef">
+    <nb-card>
+        <nb-card-header>Alargar Reservación</nb-card-header>
+        <nb-card-body>
+          <p class="label">Horas a añadir:</p>
+          <input nbInput fullWidth type="number" pattern="\d*">
+        </nb-card-body>
+        <nb-card-footer>
+          <button nbButton (click)="ref.close()">Close Dialog</button>
+        </nb-card-footer>
+      </nb-card>
+</ng-template>
+
+
+
+
+
 <nb-card-body>
   <div *ngIf="fotoUrl" class="content">
     <img [src]="fotoUrl | async" class="auto"/>
@@ -10,7 +27,7 @@
       <span>{{prettyDate2(reservacion.horaSalida.toDate())}}</span>
     </div>
     <span class="cajon"><span class="hint">Cajón: </span><b>{{reservacion.cajon}}</b></span>
-    <button outline fullWidth nbButton>Alargar reservación</button>
+    <button outline fullWidth nbButton (click)="open(alargarDialog)">Alargar reservación</button>
   </div>
 </nb-card-body>
   
