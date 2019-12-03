@@ -5,6 +5,6 @@ export class Reservacion{
   auto :Auto;
   usuario: Usuario;
   cajon: string;
-  horaEntrada: Date;
-  horaSalida: Date;
+  horaEntrada: any;
+  horaSalida: any;
 } 

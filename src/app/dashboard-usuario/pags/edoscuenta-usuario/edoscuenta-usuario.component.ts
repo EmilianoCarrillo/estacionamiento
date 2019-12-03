@@ -2,8 +2,30 @@ import { Reservacion } from 'src/app/modelos/Reservacion';
 import { Time } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { NbSortDirection, NbSortRequest, NbTreeGridDataSource, NbTreeGridDataSourceBuilder } from '@nebular/theme';
-
-interface TreeNode<T> {
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
+import { Observable } from 'rxjs';
+import { AngularFireAuth } from '@angular/fire/auth';
+function formatAMPM(date:Date) {
+  let hours = date.getHours();
+  let minutes:any = date.getMinutes();
+  let ampm = hours >= 12 ? 'pm' : 'am';
+  hours = hours % 12;
+  hours = hours ? hours : 12; // the hour '0' should be '12'
+  minutes = minutes < 10 ? '0'+minutes : minutes;
+  var strTime = hours + ':' + minutes + ' ' + ampm;
+  return strTime;
+}
+class Mes{
+  nMes:Number;
+  nombre:string;
+  count:number;
+  constructor(n:number,s:string){
+    this.nMes=n;
+    this.nombre=s;
+    this.count=0;
+  }
+}
+class TreeNode<T> {
   data: T;
   children?: TreeNode<T>[];
   expanded?: boolean;
@@ -14,7 +36,7 @@ interface TreeNode<T> {
   kind: string;
   items?: number;
 }*/
-interface FSEntry {
+class FSEntry {
   Fecha: string;
   Auto?: string;
   HoraEntrada?: string;
@@ -29,73 +51,12 @@ interface FSEntry {
 })
 export class EdoscuentaUsuarioComponent
 {
-  customColumn = 'Fecha';
-  defaultColumns = [ 'Auto', 'HoraEntrada', 'HoraSalida','Subtotal' ];
-  allColumns = [ this.customColumn, ...this.defaultColumns ];
-
-  dataSource: NbTreeGridDataSource<FSEntry>;
-
-  sortColumn: string;
-  sortDirection: NbSortDirection = NbSortDirection.NONE;
-  constructor(private dataSourceBuilder: NbTreeGridDataSourceBuilder<FSEntry>) {
-    this.dataSource = this.dataSourceBuilder.create(this.data);
-  }
-
-  updateSort(sortRequest: NbSortRequest): void {
-    this.sortColumn = sortRequest.column;
-    this.sortDirection = sortRequest.direction;
-  }
-
-  getSortDirection(column: string): NbSortDirection {
-    if (this.sortColumn === column) {
-      return this.sortDirection;
-    }
-    return NbSortDirection.NONE;
-  }
-
-  /*private data: TreeNode<FSEntry>[] = [
-    {
-      data: { name: 'Projects', size: '1.8 MB', items: 5, kind: 'dir' },
-      children: [
-        { data: { name: 'project-1.doc', kind: 'doc', size: '240 KB' } },
-        { data: { name: 'project-2.doc', kind: 'doc', size: '290 KB' } },
-        {
-          data: { name: 'project-3', kind: 'dir', size: '466 KB', items: 3 },
-          children: [
-            { data: { name: 'project-3A.doc', kind: 'doc', size: '200 KB' } },
-            { data: { name: 'project-3B.doc', kind: 'doc', size: '266 KB' } },
-            { data: { name: 'project-3C.doc', kind: 'doc', size: '0' } },
-          ],
-        },
-        { data: { name: 'project-4.docx', kind: 'docx', size: '900 KB' } },
-      ],
-    },
-    {
-      data: { name: 'Reports', kind: 'dir', size: '400 KB', items: 2 },
-      children: [
-        {
-          data: { name: 'Report 1', kind: 'dir', size: '100 KB', items: 1 },
-          children: [
-            { data: { name: 'report-1.doc', kind: 'doc', size: '100 KB' } },
-          ],
-        },
-        {
-          data: { name: 'Report 2', kind: 'dir', size: '300 KB', items: 2 },
-          children: [
-            { data: { name: 'report-2.doc', kind: 'doc', size: '290 KB' } },
-            { data: { name: 'report-2-note.txt', kind: 'txt', size: '10 KB' } },
-          ],
-        },
-      ],
-    },
-    {
-      data: { name: 'Other', kind: 'dir', size: '109 MB', items: 2 },
-      children: [
-        { data: { name: 'backup.bkp', kind: 'bkp', size: '107 MB' } },
-        { data: { name: 'secret-note.txt', kind: 'txt', size: '2 MB' } },
-      ],
-    },
-  ];*/
+  reservacionesCollection: AngularFirestoreCollection<any>;
+  items: Observable<any[]>;
+  reservaciones: Array<any>;
+  afs: AngularFirestore;
+  uid: string;
+  data3: TreeNode<FSEntry>[]=new Array();
   private data: TreeNode<FSEntry>[] = [
     {
       data: { Fecha: 'Enero'},
@@ -119,6 +80,113 @@ export class EdoscuentaUsuarioComponent
       ],
     },
   ];
+  meses: Array<Mes>= new Array();
+  customColumn = 'Fecha';
+  defaultColumns = [ 'Auto', 'HoraEntrada', 'HoraSalida','Subtotal' ];
+  allColumns = [ this.customColumn, ...this.defaultColumns ];
+
+  dataSource: NbTreeGridDataSource<FSEntry>;
+
+  sortColumn: string;
+  sortDirection: NbSortDirection = NbSortDirection.NONE;
+  constructor(
+    private dataSourceBuilder: NbTreeGridDataSourceBuilder<FSEntry>,
+    private db: AngularFirestore,
+    public afAuth: AngularFireAuth
+    ) {
+    this.meses[0]=new Mes(0,"Enero");
+    this.meses[1]=new Mes(1,"Febrero");
+    this.meses[2]=new Mes(2,"Marzo");
+    this.meses[3]=new Mes(3,"Abril");
+    this.meses[4]=new Mes(4,"Mayo");
+    this.meses[5]=new Mes(5,"Junio");
+    this.meses[6]=new Mes(6,"Julio");
+    this.meses[7]=new Mes(7,"Agosto");
+    this.meses[8]=new Mes(8,"Septiembre");
+    this.meses[9]=new Mes(9,"Octubre");
+    this.meses[10]=new Mes(10,"Noviembre");
+    this.meses[11]=new Mes(11,"Diciembre");
+    this.reservaciones=new Array();
+    this.afs=db;
+    let data2: TreeNode<FSEntry>[]=new Array();
+    this.afAuth.authState.subscribe(user => {
+      if(user) {
+        this.uid = user.uid;
+
+        this.reservacionesCollection = this.afs.collection<Reservacion>('reservaciones',
+          ref => ref.where('usuario.uid', '==', this.uid)
+        );
+
+        this.reservacionesCollection.valueChanges().subscribe(resvs => {
+          resvs.forEach(resv => {
+            this.reservaciones.push(resv);
+          });
+          this.reservaciones.forEach(resv =>{
+            
+            let fecha=resv.horaEntrada;
+            fecha=fecha.toDate();
+            let n_month=fecha.getMonth();
+            let aux: FSEntry={
+              Fecha: '',
+              Auto: '',
+              HoraEntrada: '',
+              HoraSalida: '',
+              Subtotal: 0, 
+            };
+            aux.Fecha=fecha.getDate() + "/" + (fecha.getMonth() + 1) + "/" + fecha.getFullYear();
+            aux.Auto=resv.auto.modelo;
+            aux.HoraEntrada=formatAMPM(resv.horaEntrada.toDate());
+            aux.HoraSalida=formatAMPM(resv.horaSalida.toDate());
+            aux.Subtotal = (Math.abs(resv.horaEntrada.toDate() - resv.horaSalida.toDate()) / 36e5)*75;
+            //console.log(aux);
+            if(this.meses[n_month].count==0){
+              let nodo: TreeNode<FSEntry>= new TreeNode();
+              let nodoValor: FSEntry=new FSEntry;
+              nodoValor.Fecha=this.meses[n_month].nombre;
+              nodo.data=nodoValor;
+              nodo.children=[];
+              let nodoChild:TreeNode<FSEntry>= new TreeNode();
+              let nodoChildValue: FSEntry=new FSEntry;
+              nodoChildValue=aux;
+              nodoChild.data=nodoChildValue;
+              nodo.children.push(nodoChild);
+              data2[n_month]=new TreeNode();
+              data2[n_month]=nodo;
+            }
+            else{
+              let nodoChild:TreeNode<FSEntry>= new TreeNode();
+              let nodoChildValue: FSEntry=new FSEntry;
+              nodoChildValue=aux;
+              nodoChild.data=nodoChildValue;
+              data2[n_month].children.push(nodoChild);
+            }
+            this.meses[n_month].count++;
+          });
+          
+          data2.forEach(data =>{
+            if(data)
+              this.data3.push(data);
+          });
+          console.log(this.data3);
+          this.dataSource = this.dataSourceBuilder.create(this.data3);
+        }); 
+      }
+    });
+    
+    
+  }
+
+  updateSort(sortRequest: NbSortRequest): void {
+    this.sortColumn = sortRequest.column;
+    this.sortDirection = sortRequest.direction;
+  }
+
+  getSortDirection(column: string): NbSortDirection {
+    if (this.sortColumn === column) {
+      return this.sortDirection;
+    }
+    return NbSortDirection.NONE;
+  }  
 
   getShowOn(index: number) {
     const minWithForMultipleColumns = 500;
