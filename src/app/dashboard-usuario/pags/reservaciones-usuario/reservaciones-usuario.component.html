@@ -34,7 +34,7 @@
         </div>
       </nb-card-body>
       <nb-card-footer id="nuevaFooter">
-        <button nbButton outline (click)="ref.close()">Cancelar</button>
+        <button nbButton ghost status="basic" (click)="ref.close()">Cancelar</button>
         <button nbButton status="success" type="submit" [disabled]="!resvForm.valid">Reservar</button>
       </nb-card-footer>
   </nb-card>

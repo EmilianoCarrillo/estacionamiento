@@ -1,5 +1,22 @@
-<nb-card (click)="onTarjetaClicked()">
+<ng-template #eliminarDialogo let-data let-ref="dialogRef">
+  <nb-card>
+    <nb-card-header>Eliminar Auto</nb-card-header>
+    <nb-card-body>
+      ¿Está seguro de que desea eliminar el {{auto.modelo}}?
+    </nb-card-body>
+    <nb-card-footer id="nuevaFooter">
+      <button nbButton outline ghost status="basic" (click)="ref.close()" class="cancelarBtn">Cancelar</button>
+      <button nbButton status="danger" (click)="onEliminarAuto(); ref.close()">Sí, eliminar</button>
+    </nb-card-footer>
+  </nb-card>
+</ng-template>
+
+
+<nb-card>
   <nb-card-body>
+      <button class="trashBtn" status="basic" ghost outline nbButton (click)="open(eliminarDialogo)">
+        <nb-icon icon="trash-outline"></nb-icon>
+      </button>
       <div *ngIf="fotoUrl" class="content">
         <img [src]="fotoUrl | async" class="autoImg"/>
       </div>

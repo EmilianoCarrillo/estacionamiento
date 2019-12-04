@@ -6,6 +6,7 @@ import { Auto } from 'src/app/modelos/Auto';
 import { FormControl, FormGroup, AbstractControl } from '@angular/forms';
 import { Validators } from '@angular/forms';
 import { NbToastrService } from '@nebular/theme';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-autos-usuario',
@@ -33,9 +34,17 @@ export class AutosUsuarioComponent implements OnInit {
         this.autosCollection = afs.collection<Auto>('autos',
           ref => ref.where('uid', '==', this.uid)
         );
-        this.autosCollection.valueChanges().subscribe(autos => {
+        this.autosCollection.snapshotChanges().pipe(
+          map(actions => actions.map(a => {
+            const data = a.payload.doc.data() as any;
+            data.id = a.payload.doc.id;
+            return data;
+          }))
+        ).subscribe(autos => {
           this.autos = autos;
         });
+
+
 
 
       }

@@ -15,10 +15,6 @@ nb-card{
   &:hover{
     transform: translateY(-10px);
     box-shadow: 0px 10px 30px 0px rgba(0,0,0,0.3);
-
-    nb-card-body{
-      // padding: 0;
-    }
   }
 }
 
@@ -47,4 +43,11 @@ nb-card{
 #Placa{
   font-size: 1.2rem;
 
+}
+
+.trashBtn{
+  position: absolute;
+  right: 1.4rem;
+  top: 1.2rem;
+  font-size: 1.4rem;
 }
