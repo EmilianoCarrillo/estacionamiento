@@ -155,9 +155,18 @@ export class ReservacionesUsuarioComponent implements OnInit {
     this.autos.forEach(auto =>{
       if(auto.modelo == data.auto)
         nuevaResv.auto = auto;
-    });
+    });   
 
-    this.reservacionesCollection.add(nuevaResv).then(d =>{
+    let existe = false;
+    let randomId;
+    do{
+      randomId = this.makeid(5);
+      this.afs.firestore.collection('reservaciones').doc(randomId).get().then(docSanp => {
+        if(docSanp.exists) existe = true;
+      });
+    }while(existe);
+
+    this.reservacionesCollection.doc(randomId).set(nuevaResv).then(d =>{
       this.toastrService.show(
         'Has reservado un cajón',
         'Éxito',
@@ -175,8 +184,20 @@ export class ReservacionesUsuarioComponent implements OnInit {
           duration: 5000
         });
     });
+    
+    // .add(nuevaResv)
 
     this.resvForm.reset();
+  }
+
+  makeid(length) {
+    var result           = '';
+    var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    var charactersLength = characters.length;
+    for ( var i = 0; i < length; i++ ) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
   }
 
 }

@@ -40,7 +40,14 @@
       <nb-icon icon="arrow-forward"></nb-icon>
       <span>{{prettyDate2(reservacion.horaSalida.toDate())}}</span>
     </div>
-    <span class="cajon"><span class="hint">Cajón: </span><b>{{reservacion.cajon}}</b></span>
+    <div id="Meta">
+      <div class="metaGroup">
+        <span class="cajon"><span class="hint">Cajón: </span><b>{{reservacion.cajon}}</b></span>
+      </div>
+      <div class="metaGroup">
+        <span ><span class="hint">ID: </span><b>{{reservacion.id}}</b></span>
+      </div>
+    </div>
     <button outline fullWidth nbButton (click)="open(alargarDialog)">Alargar reservación</button>
   </div>
 </nb-card-body>
