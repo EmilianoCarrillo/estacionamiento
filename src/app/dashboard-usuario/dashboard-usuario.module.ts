@@ -32,12 +32,13 @@ import { TarjetaPasadaComponent } from './pags/reservaciones-usuario/tarjeta-pas
 
 import { NbToastrModule } from '@nebular/theme';
 import { TarjetaAutoComponent } from './pags/autos-usuario/tarjeta-auto/tarjeta-auto.component';
+import { MapComponent } from './pags/tiemporeal-admin/map/map.component';
 
 
 @NgModule({
   declarations: [
     DashboardUsuarioComponent,
-    ReservacionesUsuarioComponent, AutosUsuarioComponent, EdoscuentaUsuarioComponent, PerfilComponent, TiemporealAdminComponent, ReservacionesAdminComponent, TarjetaEnCursoComponent, TarjetaPasadaComponent, TarjetaAutoComponent
+    ReservacionesUsuarioComponent, AutosUsuarioComponent, EdoscuentaUsuarioComponent, PerfilComponent, TiemporealAdminComponent, ReservacionesAdminComponent, TarjetaEnCursoComponent, TarjetaPasadaComponent, TarjetaAutoComponent, MapComponent
   ],
   imports: [
     CommonModule,
