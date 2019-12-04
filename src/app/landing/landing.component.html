@@ -1,3 +1,35 @@
+<ng-template #dialog let-data let-ref="dialogRef" >
+  <nb-card size="large" class="AcercaDe">
+    <nb-card-header class="titleAcerca">Acerca de nosotros</nb-card-header>
+    <nb-card-body class="contentAcerca"> 
+        La página web de AutoMatic es un sistema gestor de un estacionamiento inteligente. El sistema
+        se compone de dos partes: La aplicación web cliente, y el sistema gestor in situ. <br><br>
+        La aplicación web será utilizada por los usuarios en cualquier momento. Ésta permite a los
+        usuarios registrados en el sistema (miembros), reservar cajones de estacionamiento en el estacionamiento
+        inteligente de la empresa por un tiempo específico. El sistema le permitira al cliente gestionar sus
+        reservaciones realizando operaciones como agendar nuevas reservaciones, eliminar una reservación
+        previamente agendada, alargar el tiempo de reserva de una reservación previamente agendada, editar los
+        datos dependientes de la reserva, registrar automóviles pertenecientes al miembro y editar la información
+        de éstos. Además de esto, el sistema web da la oportunidad de pagar el servicio a través del mismo y
+        visualizar el historial de pagos.<br><br>
+        El sistema in situ es un sistema local embebido en el elevador del estacionamiento AutoMatic
+        cuyo propósito es verificar la identidad del conductor y verificar que éste tenga una cita. Por ello, este
+        sistema tendrá las funcionalidades de: verificar la identidad del conductor por medio de un código de
+        reserva.<br><br>
+        El mayor beneficio que se obtiene de AutoMatic al automatizar la asignación de los lugares de
+        estacionamiento es asegurar el lugar de los clientes que hagan una reserva previa a su llegada. Además de
+        éste, otros beneficios podrían ser: tener un registro detallado de los movimientos dentro del
+        estacionamiento a toda hora, aumentar la seguridad íntegra de los automóviles alojados en el
+        estacionamiento, agilizar el proceso de asignación de cajones de estacionamiento al eliminar el proceso de
+        la búsqueda de cajón por parte del usuario, construir confianza por parte de los usuarios al tener una
+        página web formal, eliminar la necesidad de pagar al llegar al estacionamiento ya que los pagos se pueden
+        realizar en línea, entre otras cosas.<br><br>
+    </nb-card-body>
+    <nb-card-footer>
+      <button nbButton (click)="ref.close()" class="btnCerrar">Cerrar</button>
+    </nb-card-footer>
+  </nb-card>
+</ng-template>
 <nb-layout>
   <nb-layout-header fixed>
     <div id="leftHeader">
@@ -17,11 +49,112 @@
     <div id=eslogan>
       <div id=column1>
           <h3 id="TextoEslogan">¿Cansado de buscar estacionamiento? Esto es para ti</h3>
-          <h6 id="Desc">Auto-matic es un estacionamineto seguro para nuestros autos con el mejor precio</h6>
+          <p id="Desc">Auto-matic es un estacionamineto seguro para nuestros autos y con el mejor precio</p>
+          <button nbButton hero routerLink="../registro" class="margen" status="primary">Empecemos</button>
+          <button nbButton outline (click)="abrirAcercaDe(dialog)" class="margen" status="info">Acerca de</button>
       </div>
       <div id=column2>
         <img id="imagen" src="../../assets/landing_asset.png"/>
       </div>   
     </div>
+    <!--<nb-layout-footer class="colored-column-basic">-->
+        <nb-card class="cardFooter">
+            <nb-card-body class="cardFooter">
+              <nb-stepper orientation="horizontal">
+                <nb-step [label]="labelOne">
+                  <ng-template #labelOne>Primer paso</ng-template>
+                  <div class="steps">
+                      <nb-card class="nbCardDesc">
+                          <nb-card-header class="titulos">Haz una reservación</nb-card-header>
+                          <nb-card-body>
+                              <p class="lorem">
+                                  El primer paso es realizar una reservación, para que 
+                                  puedas disfrutar de un lugar en nuestro estacionamiento. 
+                              </p>
+                              <button nbButton disabled nbStepperNext class="botones">Anterior</button>
+                              <button nbButton nbStepperNext class="botones">Siguiente</button>   
+                          </nb-card-body>
+                      </nb-card>
+                      <nb-card class="nbCardImagen">
+                        <nb-card-body>
+                            <img id="imagen1" class="imagenes" src="../../assets/hacerReserv.png"/> 
+                        </nb-card-body>
+                      </nb-card>
+                  </div> 
+                </nb-step>
+                <nb-step [label]="labelTwo">
+                  <ng-template #labelTwo>Segundo paso</ng-template>
+                  <div class="steps">
+                      <nb-card class="nbCardDesc">
+                          <nb-card-header class="titulos">Llega al establecimiento auto-matic</nb-card-header>
+                          <nb-card-body>
+                              <p class="lorem">
+                                  El segundo paso es ir al estacionamiento auto-matic, 
+                                  una vez hecha la reservación, sólo es cuestión de esperar el día y la hora
+                                  para llegar a ocupar el lugar que te corresponde. 
+                              </p>
+                              <button nbButton nbStepperPrevious class="botones">Anterior</button>
+                              <button nbButton nbStepperNext class="botones">Siguiente</button>   
+                          </nb-card-body>
+                      </nb-card>
+                      <nb-card class="nbCardImagen">
+                        <nb-card-body>
+                            <img id="imagen2" class="imagenes" src="../../assets/SegundoPaso.png"/> 
+                        </nb-card-body>
+                      </nb-card>
+                  </div>                 
+                </nb-step>
+                <nb-step [label]="labelThree">
+                  <ng-template #labelThree>Tercer paso</ng-template>
+                  <div class="steps">
+                      <nb-card class="nbCardDesc">
+                          <nb-card-header class="titulos">Busca tu lugar</nb-card-header>
+                          <nb-card-body>
+                              <p class="lorem">
+                                  El tercer paso es buscar el lugar que reservaste, para 
+                                  esto puedes hacerlo físicamente, pero si no lo encuentras, 
+                                  con ayuda del elevador puedes encontrarlo más fácil.
+                                  Puedes ingresar tu número de reservación y automáticamente te arrojara
+                                  la información que necesites.
+                                  Y ¡listo! encontraste tu lugar. 
+                              </p>
+                              <button nbButton nbStepperPrevious class="botones">Anterior</button>
+                              <button nbButton nbStepperNext class="botones">Siguiente</button>   
+                          </nb-card-body>
+                      </nb-card>
+                      <nb-card class="nbCardImagen">
+                        <nb-card-body>
+                            <img id="imagen3" class="imagenes" src="../../assets/tercerPaso.png"/> 
+                        </nb-card-body>
+                      </nb-card>
+                  </div>                
+                </nb-step>
+                <nb-step [label]="labelFour">
+                  <ng-template #labelFour>Cuarto paso</ng-template>
+                  <div class="steps">
+                      <nb-card class="nbCardDesc">
+                          <nb-card-header class="titulos">Estaciónate</nb-card-header>
+                          <nb-card-body>
+                              <p class="lorem">
+                                  El cuarto y último es paso, es simplemente estacionarse.
+                                  Una vez que encunetres tu lugar, estaciónate y disfruta de tu cajón.
+                                  Si necesitas más tiempo, no te preocupes, tienes la opción de alargar
+                                  tu reservación.
+                              </p>
+                              <button nbButton nbStepperPrevious class="botones">Anterior</button>
+                              <button nbButton disabled nbStepperNext class="botones">Siguiente</button>   
+                          </nb-card-body>
+                      </nb-card>
+                      <nb-card class="nbCardImagen">
+                        <nb-card-body>
+                            <img id="imagen4" class="imagenes" src="../../assets/estacionamiento.png"/> 
+                        </nb-card-body>
+                      </nb-card>
+                  </div>       
+                </nb-step>
+              </nb-stepper>
+            </nb-card-body>
+        </nb-card>
+   <!-- </nb-layout-footer> -->
   </nb-layout-column>
 </nb-layout>
